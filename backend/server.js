@@ -51,13 +51,17 @@ app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-app.listen(PORT, () => {
-  const dbConfigured = !!process.env.DATABASE_URL;
-  const authConfigured = !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY);
-  const aiConfigured = !!process.env.GROQ_API_KEY;
+if (require.main === module) {
+  app.listen(PORT, () => {
+    const dbConfigured = !!process.env.DATABASE_URL;
+    const authConfigured = !!(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY);
+    const aiConfigured = !!process.env.GROQ_API_KEY;
 
-  console.log(`\n🐾 PetSphere backend running on http://localhost:${PORT}`);
-  console.log(`   Database:  ${dbConfigured ? '✅ PostgreSQL' : '⚡ In-memory mock data'}`);
-  console.log(`   Auth:      ${authConfigured ? '✅ Supabase' : '⚡ Demo mode only'}`);
-  console.log(`   AI Chat:   ${aiConfigured ? '✅ Groq API' : '⚡ Mock responses'}\n`);
-});
+    console.log(`\n🐾 PetSphere backend running on http://localhost:${PORT}`);
+    console.log(`   Database:  ${dbConfigured ? '✅ PostgreSQL' : '⚡ In-memory mock data'}`);
+    console.log(`   Auth:      ${authConfigured ? '✅ Supabase' : '⚡ Demo mode only'}`);
+    console.log(`   AI Chat:   ${aiConfigured ? '✅ Groq API' : '⚡ Mock responses'}\n`);
+  });
+}
+
+module.exports = app;
