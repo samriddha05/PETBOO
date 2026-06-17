@@ -1,0 +1,166 @@
+.pets-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.pets-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pets-page__header h2 {
+  margin-bottom: 2px;
+}
+
+.pets-page__header p {
+  font-size: 0.813rem;
+}
+
+/* ── Grid ─────────────────────────────────────────────────────────────── */
+.pets-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.pets-page__grid .glass-card {
+  animation: slide-up 0.4s ease-out both;
+}
+
+/* ── Pet Card ─────────────────────────────────────────────────────────── */
+.pet-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  position: relative;
+}
+
+.pet-card__top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.pet-card__avatar {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(20,184,166,0.12), rgba(102,126,234,0.1));
+  font-size: 1.75rem;
+  border: 2px solid rgba(20,184,166,0.15);
+  transition: transform var(--transition-bounce);
+}
+.pet-card:hover .pet-card__avatar {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.pet-card__icon-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.pet-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1.5px solid transparent;
+}
+.pet-icon-btn:hover {
+  background: var(--accent-blue-light);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+.pet-icon-btn--danger:hover {
+  background: #fee2e2;
+  color: var(--error);
+  border-color: #fca5a5;
+}
+
+.pet-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+.pet-card__name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.pet-card__stats {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: 2px;
+}
+
+.pet-card__stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.pet-card__profile-btn {
+  margin-top: auto;
+  font-size: 0.875rem;
+  padding: 10px 16px;
+  border-radius: var(--radius-md) !important;
+}
+
+/* ── Badges ───────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.badge-teal {
+  background: var(--accent-teal-light);
+  color: var(--accent-teal);
+}
+
+/* ── Form ─────────────────────────────────────────────────────────────── */
+.pet-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.pet-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+/* ── Loading Skeletons ────────────────────────────────────────────────── */
+.pet-card-skeleton {
+  width: 100%;
+  min-height: 220px;
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-card) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-2xl);
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

@@ -1,0 +1,459 @@
+/* ── Medical Records Tab ────────────────────────────────────────────────── */
+
+.medical-tab {
+  animation: slide-up 0.3s ease forwards;
+}
+
+.medical-tab__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.medical-tab__title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.medical-tab__subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ── Drag & Drop Auto-Extract Zone ───────────────────────────────────────── */
+.drag-drop-zone {
+  background: var(--bg-card);
+  border: 2px dashed var(--accent-teal);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  transition: all var(--transition-bounce);
+  position: relative;
+  overflow: hidden;
+}
+
+.drag-drop-zone--active {
+  background: var(--accent-teal-light);
+  border-color: var(--accent-teal);
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(20, 184, 166, 0.2);
+}
+
+.drag-drop-zone--analyzing {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(139, 92, 246, 0.1));
+  border-color: var(--accent-purple);
+  animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(139, 92, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+}
+
+.drag-drop-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.drag-drop-icon {
+  position: relative;
+  color: var(--accent-teal);
+  margin-bottom: var(--space-sm);
+  transition: transform var(--transition-bounce);
+}
+
+.drag-drop-zone--active .drag-drop-icon {
+  transform: scale(1.2) translateY(-5px);
+}
+
+.drag-drop-sparkle {
+  position: absolute;
+  top: -10px;
+  right: -15px;
+  color: var(--accent-orange);
+  animation: spin 3s linear infinite;
+}
+
+.drag-drop-zone h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.drag-drop-zone p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin: 0 auto var(--space-sm);
+}
+
+.drag-drop-btn {
+  margin-top: var(--space-sm);
+  cursor: pointer;
+}
+
+.drag-drop-spinner {
+  border-color: rgba(139, 92, 246, 0.3);
+  border-top-color: var(--accent-purple);
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Empty State ─────────────────────────────────────────────────────────── */
+.medical-tab__empty {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 2px dashed var(--glass-border);
+}
+.medical-tab__empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: var(--space-md);
+}
+.medical-tab__empty h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.medical-tab__empty p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-lg);
+}
+
+/* ── Loading Skeletons ───────────────────────────────────────────────────── */
+.medical-tab__loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.record-skeleton {
+  height: 120px;
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-card) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-lg);
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Timeline ────────────────────────────────────────────────────────────── */
+.record-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 28px;
+}
+
+.record-timeline::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-purple) 100%);
+  opacity: 0.3;
+  border-radius: 2px;
+}
+
+/* ── Record Card ─────────────────────────────────────────────────────────── */
+.record-card {
+  position: relative;
+  margin-bottom: var(--space-md);
+}
+
+.record-card__timeline-dot {
+  position: absolute;
+  left: -24px;
+  top: 20px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-teal), #667eea);
+  border: 3px solid var(--bg-app);
+  box-shadow: 0 0 0 2px var(--accent-teal);
+  z-index: 1;
+}
+
+.record-card__inner {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--glass-border);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+.record-card__inner:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(20, 184, 166, 0.3);
+}
+
+.record-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.record-card__date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-teal-light);
+  color: var(--accent-teal);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+}
+
+.record-card__actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.record-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+.record-action-btn:hover {
+  background: var(--accent-blue-light);
+  color: var(--accent-blue);
+}
+.record-action-btn--danger:hover {
+  background: #fee2e2;
+  color: var(--error);
+}
+
+/* ── Record Meta ─────────────────────────────────────────────────────────── */
+.record-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+.record-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.record-card__preview {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  background: var(--bg-secondary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+}
+.record-card__preview span {
+  line-height: 1.5;
+}
+.record-card__preview--diagnosis {
+  background: var(--accent-green-light);
+  color: #065f46;
+}
+
+/* ── Expand Button ───────────────────────────────────────────────────────── */
+.record-card__expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: var(--space-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-teal);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+.record-card__expand-btn:hover {
+  background: var(--accent-teal-light);
+}
+
+/* ── Details ─────────────────────────────────────────────────────────────── */
+.record-card__details {
+  margin-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  border-top: 1.5px solid var(--glass-border);
+  padding-top: var(--space-sm);
+  animation: slide-up 0.2s ease forwards;
+}
+.record-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.record-detail__label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.record-detail__value {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+  padding-left: 18px;
+  white-space: pre-wrap;
+}
+.record-detail--next-visit {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-orange-light);
+  color: var(--accent-orange);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── File Chips ──────────────────────────────────────────────────────────── */
+.record-card__files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1.5px solid var(--glass-border);
+}
+
+.file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  max-width: 200px;
+  transition: all var(--transition-fast);
+}
+.file-chip:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: var(--accent-blue-light);
+}
+.file-chip__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
+}
+.file-chip__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+.file-chip__action:hover { color: var(--accent-blue); }
+.file-chip__delete:hover { color: var(--error) !important; }
+
+.file-upload-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: 1.5px dashed var(--accent-teal);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent-teal);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+.file-upload-chip:hover {
+  background: var(--accent-teal-light);
+}
+.file-upload-chip--loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ── Delete Overlay ──────────────────────────────────────────────────────── */
+.medical-delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  animation: fadeIn 0.2s ease forwards;
+}
+.medical-delete-dialog {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: scale-in 0.25s var(--transition-bounce) forwards;
+}
+.medical-delete-dialog__icon { font-size: 2.5rem; margin-bottom: var(--space-sm); }
+.medical-delete-dialog h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+.medical-delete-dialog p { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+.medical-delete-dialog__actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+.medical-delete-dialog__actions .btn { flex: 1; }
+
+@media (max-width: 640px) {
+  .record-timeline { padding-left: 20px; }
+  .record-card__timeline-dot { left: -17px; }
+}

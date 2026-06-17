@@ -1,0 +1,328 @@
+/* ── Vaccination Tab ────────────────────────────────────────────────────── */
+
+.vax-tab { animation: slide-up 0.3s ease forwards; }
+
+.vax-tab__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+.vax-tab__title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.vax-tab__subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ── Summary Cards ───────────────────────────────────────────────────────── */
+.vax-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.vax-summary-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid transparent;
+  transition: all var(--transition-bounce);
+}
+.vax-summary-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.vax-summary-card div { display: flex; flex-direction: column; gap: 1px; }
+.vax-summary-card span { font-size: 1.5rem; font-weight: 800; line-height: 1; }
+.vax-summary-card small { font-size: 0.72rem; font-weight: 700; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.vax-summary-card--green  { background: var(--accent-green-light);  color: #065f46; border-color: #a7f3d0; }
+.vax-summary-card--blue   { background: var(--accent-blue-light);   color: #1e3a8a; border-color: #bfdbfe; }
+.vax-summary-card--orange { background: var(--accent-orange-light); color: #92400e; border-color: #fed7aa; }
+.vax-summary-card--red    { background: #fef2f2;                    color: #991b1b; border-color: #fecaca; }
+
+/* ── Empty State ─────────────────────────────────────────────────────────── */
+.vax-tab__loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.vax-tab__empty {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  border: 2px dashed var(--glass-border);
+}
+.vax-tab__empty-icon { font-size: 3.5rem; margin-bottom: var(--space-md); }
+.vax-tab__empty h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; }
+.vax-tab__empty p { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+
+/* ── Vaccine List ────────────────────────────────────────────────────────── */
+.vax-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.vax-card {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  background: var(--bg-card);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+.vax-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.vax-card--red   { border-color: #fecaca; }
+.vax-card--orange { border-color: #fed7aa; }
+
+.vax-card__left { flex-shrink: 0; }
+
+.vax-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vax-card__icon--green  { background: var(--accent-green-light);  color: var(--accent-green); }
+.vax-card__icon--blue   { background: var(--accent-blue-light);   color: var(--accent-blue); }
+.vax-card__icon--orange { background: var(--accent-orange-light); color: var(--accent-orange); }
+.vax-card__icon--red    { background: #fef2f2;                    color: var(--error); }
+
+.vax-card__body { flex: 1; min-width: 0; }
+
+.vax-card__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.vax-card__name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+/* Status Badge */
+.vax-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+.vax-status-badge--green  { background: var(--accent-green-light);  color: #065f46; }
+.vax-status-badge--blue   { background: var(--accent-blue-light);   color: #1e3a8a; }
+.vax-status-badge--orange { background: var(--accent-orange-light); color: #92400e; }
+.vax-status-badge--red    { background: #fef2f2;                    color: #991b1b; }
+
+.vax-card__dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.vax-date-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.vax-card__meta {
+  display: flex;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.vax-card__notes {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.vax-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+/* ── Vaccination Modal ───────────────────────────────────────────────────── */
+.vax-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.vax-modal {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+  animation: scale-in 0.25s var(--transition-bounce) forwards;
+  scrollbar-width: thin;
+}
+
+.vax-modal__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-xl) var(--space-md);
+  border-bottom: 1.5px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  background: var(--bg-primary);
+  z-index: 1;
+}
+.vax-modal__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+}
+.vax-modal__title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.vax-modal__subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.vax-modal__close {
+  margin-left: auto;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+.vax-modal__close:hover { background: #fee2e2; color: var(--error); }
+
+.vax-modal__form {
+  padding: var(--space-lg) var(--space-xl);
+}
+.vax-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+.vax-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.vax-form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.vax-form-group--full { grid-column: 1 / -1; }
+
+.vax-modal__footer {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+  padding-top: var(--space-md);
+  border-top: 1.5px solid var(--glass-border);
+  margin-top: var(--space-md);
+}
+.vax-modal__footer .btn { min-width: 120px; }
+
+/* ── Delete Overlay ──────────────────────────────────────────────────────── */
+.medical-delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  animation: fadeIn 0.2s ease forwards;
+}
+.medical-delete-dialog {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: scale-in 0.25s var(--transition-bounce) forwards;
+}
+.medical-delete-dialog__icon { font-size: 2.5rem; margin-bottom: var(--space-sm); }
+.medical-delete-dialog h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+.medical-delete-dialog p { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--space-lg); }
+.medical-delete-dialog__actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+.medical-delete-dialog__actions .btn { flex: 1; }
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .vax-summary { grid-template-columns: repeat(2, 1fr); }
+  .vax-form-grid { grid-template-columns: 1fr; }
+  .vax-form-group--full { grid-column: 1 / -1; }
+}
+@media (max-width: 400px) {
+  .vax-summary { grid-template-columns: 1fr 1fr; }
+}
