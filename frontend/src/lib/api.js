@@ -1,6 +1,18 @@
 const DEFAULT_DEV_API_URL = 'http://localhost:5000/api/v1';
 const configuredApiUrl = import.meta.env.VITE_API_URL;
-const BASE_URL = configuredApiUrl || (import.meta.env.DEV ? DEFAULT_DEV_API_URL : '');
+
+function readMetaApiUrl() {
+  try {
+    const meta = document.querySelector('meta[name="api-url"]');
+    if (meta && meta.content) return meta.content.trim();
+  } catch (e) {}
+  return null;
+}
+
+// Allow runtime override via a global set by the hosting page: `window.__API_URL = 'https://api.../api/v1'`
+const runtimeApiUrl = typeof window !== 'undefined' ? window.__API_URL || readMetaApiUrl() : null;
+
+const BASE_URL = configuredApiUrl || runtimeApiUrl || (import.meta.env.DEV ? DEFAULT_DEV_API_URL : '');
 
 let getSessionToken = () => null;
 

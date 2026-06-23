@@ -55,5 +55,29 @@ router.post('/knowledge', async (req, res) => {
     return res.status(500).json({ error: 'Failed to ingest knowledge document', details: error.message });
   }
 });
+// Dev-only endpoint to trigger/preview emails (works in simulator mode or with SMTP configured)
+if (process.env.ENABLE_DEV_ENDPOINTS === 'true' || process.env.NODE_ENV !== 'production') {
+  router.post('/dev/send-test-email', async (req, res) => {
+    try {
+      const payload = req.body || {};
+      const { sendAppointmentConfirmationEmail } = require('../utils/mailer');
 
+      await sendAppointmentConfirmationEmail({
+        userEmail: payload.userEmail || 'test@petsphere.app',
+        userName: payload.userName || 'Test User',
+        petName: payload.petName || 'Buddy',
+        vetName: payload.vetName || 'Dr. Demo',
+        date: payload.date || new Date().toISOString(),
+        time: payload.time || '10:00 AM',
+        type: payload.type || 'chat',
+        notes: payload.notes || 'Test email from dev endpoint',
+      });
+
+      return res.status(200).json({ success: true, message: 'Test email dispatched/simulated.' });
+    } catch (err) {
+      console.error('[adminRoutes] /dev/send-test-email error:', err.message);
+      return res.status(500).json({ error: 'Failed to send test email', details: err.message });
+    }
+  });
+}
 module.exports = router;
