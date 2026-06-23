@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Filter, MapPin, Stethoscope, SlidersHorizontal } from 'lucide-react';
+import { Search, MapPin, Stethoscope, SlidersHorizontal } from 'lucide-react';
 import { api } from '../lib/api';
 import VetCard from '../components/VetCard';
 import VetBookingModal from '../components/VetBookingModal';
@@ -7,6 +7,7 @@ import Modal from '../components/Modal';
 import StarRating from '../components/StarRating';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import EmptyState from '../components/EmptyState';
+import { vets as fallbackVets, getVetReviews } from '../data/vetData';
 import './VetsPage.css';
 
 const SPECIALIZATIONS = [
@@ -44,9 +45,10 @@ export default function VetsPage() {
   const fetchVets = async () => {
     try {
       const res = await api.get('/vets');
-      setVets(res.vets || []);
+      setVets(res.vets || fallbackVets);
     } catch (err) {
       console.error('Failed to fetch vets:', err);
+      setVets(fallbackVets);
     } finally {
       setLoading(false);
     }
@@ -64,9 +66,9 @@ export default function VetsPage() {
     setProfileVet(vet);
     try {
       const res = await api.get(`/vets/${vet.id}/reviews`);
-      setProfileReviews(res.reviews || []);
+      setProfileReviews(res.reviews || getVetReviews(vet.id));
     } catch {
-      setProfileReviews([]);
+      setProfileReviews(getVetReviews(vet.id));
     }
   };
 

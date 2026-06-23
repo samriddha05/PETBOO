@@ -1,4 +1,6 @@
-const BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+const DEFAULT_DEV_API_URL = 'http://localhost:5000/api/v1';
+const configuredApiUrl = import.meta.env.VITE_API_URL;
+const BASE_URL = configuredApiUrl || (import.meta.env.DEV ? DEFAULT_DEV_API_URL : '');
 
 let getSessionToken = () => null;
 
@@ -7,6 +9,10 @@ export function setTokenGetter(fn) {
 }
 
 async function apiFetch(path, options = {}) {
+  if (!BASE_URL) {
+    throw new Error('Backend API is not configured. Set VITE_API_URL to your backend base URL.');
+  }
+
   const token = await getSessionToken();
   const headers = {
     'Content-Type': 'application/json',

@@ -37,7 +37,11 @@ export default function LoginPage() {
       }
       navigate('/', { replace: true });
     } catch (err) {
-      setError(err.message || 'Authentication failed');
+      if (err.status === 405) {
+        setError('Login failed because the backend API is not available at this location. Please run the backend server or configure the correct API URL.');
+      } else {
+        setError(err.message || 'Authentication failed');
+      }
     } finally {
       setLoading(false);
     }
@@ -56,7 +60,11 @@ export default function LoginPage() {
         setDevResetLink(res.resetLink);
       }
     } catch (err) {
-      setError(err.message || 'Failed to request password reset link.');
+      if (err.status === 405) {
+        setError('Password reset failed because the backend API is not available at this location. Please run the backend server or configure the correct API URL.');
+      } else {
+        setError(err.message || 'Failed to request password reset link.');
+      }
     } finally {
       setLoading(false);
     }

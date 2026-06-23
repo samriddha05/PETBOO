@@ -4,6 +4,7 @@ import { api } from '../lib/api';
 import GroomerCard from '../components/GroomerCard';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import EmptyState from '../components/EmptyState';
+import { groomers as fallbackGroomers } from '../data/groomingData';
 import './GroomingMarketplace.css';
 
 const CITIES = ['All', 'Durg', 'Bhilai', 'Raipur', 'Bangalore', 'Mumbai', 'Chennai', 'Delhi', 'Hyderabad', 'Kolkata'];
@@ -24,9 +25,10 @@ export default function GroomingMarketplace() {
   const fetchGroomers = async () => {
     try {
       const res = await api.get('/groomers');
-      setGroomers(res.groomers || []);
+      setGroomers(res.groomers || fallbackGroomers);
     } catch (err) {
       console.error('Failed to fetch groomers:', err);
+      setGroomers(fallbackGroomers);
     } finally {
       setLoading(false);
     }

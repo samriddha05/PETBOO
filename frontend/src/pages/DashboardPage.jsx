@@ -5,6 +5,7 @@ import { api } from '../lib/api';
 import StatCard from '../components/StatCard';
 import GlassCard from '../components/GlassCard';
 import LoadingSkeleton from '../components/LoadingSkeleton';
+import pawcareBanner from '../assets/pawcare-banner.png';
 import './DashboardPage.css';
 
 export default function DashboardPage() {
@@ -71,7 +72,7 @@ export default function DashboardPage() {
     <div className="dashboard">
       {/* Custom Banner */}
       <div className="dashboard__custom-banner">
-        <img src="/src/assets/pawcare-banner.png" alt="Pets Banner" className="dashboard__custom-banner-bg" />
+        <img src={pawcareBanner} alt="Pets Banner" className="dashboard__custom-banner-bg" />
         <div className="dashboard__custom-banner-content">
           <h1>G<span className="paw-text">🐾</span>OD<br/>{getGreeting()} GUYS</h1>
           <p>Have a pawsome day with your furry friends!</p>
